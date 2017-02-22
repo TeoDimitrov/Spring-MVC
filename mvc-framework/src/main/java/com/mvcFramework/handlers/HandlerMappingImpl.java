@@ -22,7 +22,8 @@ public class HandlerMappingImpl implements HandlerMapping {
     public ControllerActionPair findController(HttpServletRequest request) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         String urlPath = request.getRequestURI();
         String projectPath = URLDecoder.decode(request.getServletContext().getResource("/WEB-INF/classes").getPath(), "UTF-8");
-        List<Class> controllers = this.findAllControllers(projectPath);
+        String absolute = request.getServletContext().getRealPath("/WEB-INF/classes");
+        List<Class> controllers = this.findAllControllers(absolute);
         for (Class controller : controllers) {
             Method[] methods = controller.getDeclaredMethods();
             for (Method method : methods) {

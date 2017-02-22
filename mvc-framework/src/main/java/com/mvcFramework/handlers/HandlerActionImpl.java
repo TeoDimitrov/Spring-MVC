@@ -6,16 +6,21 @@ import com.mvcFramework.controller.ControllerActionPair;
 import com.mvcFramework.interfaces.HandlerAction;
 import com.mvcFramework.models.Model;
 
+import javax.naming.Context;
+import javax.naming.InitialContext;
+import javax.naming.NamingException;
 import javax.servlet.http.HttpServletRequest;
-import java.lang.reflect.*;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.lang.reflect.Parameter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 
 public class HandlerActionImpl implements HandlerAction {
     @Override
-    public String executeControllerAction(HttpServletRequest request, ControllerActionPair controllerActionPair) throws InvocationTargetException, IllegalAccessException, InstantiationException, NoSuchMethodException {
+    public String executeControllerAction(HttpServletRequest request, ControllerActionPair controllerActionPair) throws InvocationTargetException, IllegalAccessException, InstantiationException, NoSuchMethodException, NamingException {
         Class controller = controllerActionPair.getController();
         Method actionMethod = controllerActionPair.getMethod();
         Parameter[] parameters = actionMethod.getParameters();
@@ -41,7 +46,11 @@ public class HandlerActionImpl implements HandlerAction {
 
         }
 
-        String view = (String) actionMethod.invoke(controller.newInstance(), (Object[]) objects.toArray());
+        Context context = new InitialContext();
+        String str = controller.getSimpleName();
+        Object obj = context.lookup("java:global/" + str);
+
+        String view = (String) actionMethod.invoke(obj, (Object[]) objects.toArray());
         return  view;
     }
 

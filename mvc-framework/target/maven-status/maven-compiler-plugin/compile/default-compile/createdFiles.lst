@@ -1,0 +1,15 @@
+com\mvcFramework\handlers\HandlerActionImpl.class
+com\mvcFramework\annotations\parameters\PathVariable.class
+com\mvcFramework\annotations\request\PostMapping.class
+com\mvcFramework\interfaces\HandlerAction.class
+com\mvcFramework\handlers\HandlerMappingImpl.class
+com\mvcFramework\interfaces\Dispatcher.class
+testControllers\HomeController.class
+com\mvcFramework\annotations\request\GetMapping.class
+com\mvcFramework\interfaces\HandlerMapping.class
+com\mvcFramework\annotations\parameters\RequestParam.class
+com\mvcFramework\annotations\controller\Controller.class
+com\mvcFramework\dispatcher\DispatcherServlet.class
+testControllers\BeerController.class
+com\mvcFramework\controller\ControllerActionPair.class
+com\mvcFramework\models\Model.class
