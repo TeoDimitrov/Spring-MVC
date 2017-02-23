@@ -83,10 +83,10 @@ public class DispatcherServlet extends HttpServlet implements Dispatcher {
     }
 
     @Override
-    public String dispatchAction(HttpServletRequest request, ControllerActionPair controllerActionPair) {
+    public String dispatchAction(HttpServletRequest request, HttpServletResponse response, ControllerActionPair controllerActionPair) {
         String view = null;
         try {
-            view = this.handlerAction.executeControllerAction(request, controllerActionPair);
+            view = this.handlerAction.executeControllerAction(request,response, controllerActionPair);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -97,7 +97,7 @@ public class DispatcherServlet extends HttpServlet implements Dispatcher {
     private void handleRequest(HttpServletRequest request, HttpServletResponse response) {
         ControllerActionPair controllerActionPair = this.dispatchRequest(request);
         if (controllerActionPair != null) {
-            String view = this.dispatchAction(request, controllerActionPair);
+            String view = this.dispatchAction(request, response, controllerActionPair);
             try {
                 if (view.startsWith("redirect:")) {
                     String redirectPath = view.replace("redirect:", "");
